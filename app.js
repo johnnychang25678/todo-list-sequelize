@@ -19,7 +19,19 @@ app.use(methodOverride('_method'))
 
 // routes
 app.get('/', (req, res) => {
-  res.send('hello world')
+  return Todo.findAll({
+    raw: true,
+    nest: true
+  })
+    .then(todos => res.render('index', { todos }))
+    .catch(err => res.status(422).json(err))
+})
+
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findByPk(id)
+    .then(todo => res.render('detail', { todo: todo.toJSON() }))
+    .catch(err => console.log(err))
 })
 
 app.get('/users/login', (req, res) => {
