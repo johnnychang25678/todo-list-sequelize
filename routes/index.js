@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const authenticator = require('../middlewares/auth')
 
 
 router.use('/users', require('./modules/users'))
-router.use('/todos', require('./modules/todos'))
-router.use('/', require('./modules/home'))
+router.use('/todos', authenticator, require('./modules/todos'))
+router.use('/', authenticator, require('./modules/home'))
 
 module.exports = router

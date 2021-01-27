@@ -7,23 +7,23 @@ const db = require('../../models/index')
 const User = db.User
 
 // login page
-router.get('/users/login', (req, res) => {
+router.get('/login', (req, res) => {
   res.render('login')
 })
 
 // login request
-router.post('/users/login', passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login'
 }))
 
 // register page
-router.get('/users/register', (req, res) => {
+router.get('/register', (req, res) => {
   res.render('register')
 })
 
 // register request
-router.post('/users/register', (req, res) => {
+router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   User.findOne({ where: { email } })
     .then(user => {
@@ -45,7 +45,7 @@ router.post('/users/register', (req, res) => {
 })
 
 // logout
-router.get('/users/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   res.send('logout')
 })
 
